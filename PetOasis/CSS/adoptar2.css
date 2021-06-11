@@ -1,0 +1,91 @@
+﻿
+body {
+    background-image: linear-gradient(to left, #ffd89b, #F8F3EC);
+    padding-top: 0px;
+}
+
+.container.body-content {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.portal {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-row-gap: 50px;
+    grid-column-gap: 70px;
+    /*background-color: #CACACA;*/
+}
+
+.item {
+    height: 374px;
+    width: 240px;
+    text-align: center;
+    font-size: 15px;
+    border: 3px solid;
+    border-color: #1F1C17;
+    border-radius: 5px;
+    background-color:white;
+}
+
+.item:hover {
+    background-image: url("https://i.ibb.co/xDHrRhQ/back-celeste.png");
+    background-position: center center;
+    margin: 0;
+}
+
+img {
+    width: 100%;
+    height: 90%;
+}
+
+
+h2 {
+    text-align: center;
+}
+
+.nombre {
+    display: block;
+    height:10%;
+    font-size: 20px;
+    font-weight: bold;
+    color: darkblue;
+    font-style: normal;
+    font-family: 'Chelsea Market';
+}
+
+#izquierda {
+    width: 310px;
+    height: 90vh;
+    margin-left: 190px;
+    margin-right: 110px;
+    padding: 15px;
+    border-right: solid #1F1C17;
+}
+
+#textoizq {
+    font-weight: bold;
+    font-family: 'Chelsea Market';
+}
+
+select {
+    font-family: 'Chelsea Market';
+}
+
+button {
+    margin-top: 20px;
+    font-family: 'Chelsea Market';
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    color: white;
+    background-color: #1F1C17;
+    border-color: black;
+}

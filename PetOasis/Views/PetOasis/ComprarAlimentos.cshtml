@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PetOasis.Models.Alimento>
+@using PetOasis.Models
+<link rel="stylesheet" href="~/CSS/compraracc2.css" type="text/css" />
+@{
+    ViewBag.Title = "ComprarAlimentos";
+}
+
+<h2>ComprarAlimentos</h2>
+
+
+<div id="izquierda" style="text-align:left; float:left">
+    @using (Html.BeginForm())
+    {
+        <span id="textoizq" style="color:black">Tipo</span>
+        <br />
+        <select style="width:200px;" class="form-control" id="tipo" name="tipo">
+            <option value=0>Todos</option>
+            <option value=1>Perro</option>
+            <option value=2>Gato</option>
+        </select>
+
+        <button>Procesar</button>
+    }
+</div>
+
+
+<div class="portal">
+
+    @foreach (var item in Model)
+    {
+
+        <a style="text-decoration: none;" class="item" href="@Url.Action("AgregarAli", "PetOasis", new { id = item.codigo })">
+
+            <img src="@Url.Content(string.Format("~/Imagenes/Alimentos/{0}.jpg", item.codigo))" />
+            <span class="nombre">@Html.DisplayFor(modelItem => item.nombre)</span>
+            <span class="precio">S/.@Html.DisplayFor(modelItem => item.precio)</span>
+            <br />
+        </a>
+    }
+
+</div>

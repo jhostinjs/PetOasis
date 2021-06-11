@@ -1,0 +1,50 @@
+﻿@model IEnumerable<PetOasis.Models.Accesorio>
+@using PetOasis.Models
+<link rel="stylesheet" href="~/CSS/compraracc2.css" type="text/css" />
+@{
+    ViewBag.Title = "ComprarAccesorios";
+}
+
+<h2>Accesorios</h2>
+
+<div id ="izquierda" style="text-align:left; float:left">
+    @using (Html.BeginForm())
+    {
+        <span id="textoizq" style="color:black">Tipo</span>
+        <br />
+        <select style="width:200px;" class="form-control" id="tipo" name="tipo">
+            <option value=0>Todos</option>
+            <option value=1>Perro</option>
+            <option value=2>Gato</option>
+        </select>
+        <br />
+        <span id="textoizq" style="color:black">Sexo</span>
+        <select style="width:200px;" class="form-control" id="categoria" name="categoria">
+            <option value=0>Todos</option>
+            <option value=1>Juguetes</option>
+            <option value=2>Ropa</option>
+            <option value=3>Higiene</option>
+            <option value=4>Camas y casetas</option>
+            <option value=5>Comedores y bebederos</option>
+        </select>
+        <button>Procesar</button>
+        //@Html.CheckBox("sexo").Equals("Macho") <em>Macho</em>
+
+    }
+</div>
+
+<div class="portal">
+
+    @foreach (var item in Model)
+    {
+        
+        <a style="text-decoration: none;" class="item" href="@Url.Action("Agregar", "PetOasis", new { id = item.codigo })">
+   
+            <img src="@Url.Content(string.Format("~/Imagenes/Accesorios/{0}.jpg", item.codigo))"/>
+            <span class="nombre">@Html.DisplayFor(modelItem => item.nombre)</span>
+            <span class="precio">S/.@Html.DisplayFor(modelItem => item.precio)</span>
+            <br />
+        </a>
+    }
+
+</div>

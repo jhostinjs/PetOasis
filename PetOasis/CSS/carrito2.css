@@ -1,0 +1,81 @@
+﻿body {
+    background: linear-gradient(to left, #ffd89b, #F8F3EC);
+    padding-top: 0px;
+}
+
+.container.body-content {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+}
+
+.table {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    float: left;
+    width: 94%;
+    position: relative;
+}
+
+th, td {
+    color:ghostwhite;
+    padding: 20px;
+}
+h1 {
+    text-align:center;
+    color:whitesmoke;
+    margin-bottom:50px;
+}
+.total{
+    color:white;
+    margin-inline:5%;
+}
+
+.izquierda {
+    width: 70%;
+    position: relative;
+}
+
+.derecha {
+    background-color: rgba(0, 0, 0, 0.8);
+    float: right;
+    width: 30%;
+    padding: 2%;
+    padding-top: 1%;
+    position: relative;
+    height: 78%;
+}
+.general {
+    width:94%;
+    margin: 3%;
+    height:330px;
+    display:flex;
+}
+
+.seguir {
+    margin-block-start: 1%;
+    padding: 1%;
+    padding-inline: 2%;
+    background-color: #0C0C0C;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    float: left;
+}
+.procesar {
+    margin-top:50px;
+    padding-block: 4.6%;
+    padding-inline: 32%;
+    background-color: #0C0C0C;
+    width: 50%;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-left: 5%;
+}
+.procesar:hover, .seguir:hover{
+    text-decoration:none;
+    color:white;
+}

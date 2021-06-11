@@ -1,0 +1,61 @@
+﻿@model PetOasis.Models.Usuario
+@using PetOasis.Models
+
+@{
+    ViewBag.Title = "Comprar";
+}
+
+<h2>Comprar</h2>
+<style>
+    body {
+        background-image: linear-gradient(to left, #ffd89b, #F8F3EC);
+        padding-top: 0px;
+    }
+</style>
+<div>
+    <h4>Usuario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codigo)
+        </dd>
+
+        <dt>
+            <span>Cliente</span>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre) @Html.DisplayFor(model => model.apellido)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd style="color:black; text-decoration:none;">
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    @Html.Partial("_PartialCarrito", (ViewBag.carrito) as List<Item>)
+</div>
+
+<p>
+    @Html.ActionLink("Generar Pedido", "Pedido", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Ir a la tienda", "ComprarAccesorios", null, new { @class = "btn btn-primary" })
+</p>

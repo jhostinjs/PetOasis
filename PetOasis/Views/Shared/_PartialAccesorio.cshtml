@@ -1,0 +1,72 @@
+﻿@model IEnumerable<PetOasis.Models.Accesorio>
+
+<style>
+    .img-mantenimiento {
+        width: 65px;
+        height: 65px;
+        border: 2px solid;
+        border-color: black;
+    }
+</style>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.precio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cantidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.categoria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.disponibilidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.imgAcc)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.codigo.ToString(), "ManAccesorio", new { id = item.codigo })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.precio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cantidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.categoria)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.disponibilidad)
+        </td>
+        <td>
+            <img class="img-mantenimiento" src="@Url.Content(item.imgAcc)" />
+        </td>
+        <td>
+            @Html.ActionLink("Kardex", "KardexAcc", new { id = item.codigo })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<PetOasis.Models.Item>
+<link rel="stylesheet" href="~/CSS/carrito2.css" type="text/css" />
+@{
+    ViewBag.Title = "Carrito";
+}
+
+<h2 style="text-align:center;">Carrito</h2>
+
+<section class="general">
+    <section class="izquierda">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.codigo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.precio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.cantidad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.monto)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.codigo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nombre)
+                    </td>
+                    <td>
+                        S/.@Html.DisplayFor(modelItem => item.precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cantidad)
+                    </td>
+                    <td>
+                        S/.@Html.DisplayFor(modelItem => item.monto)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.codigo })
+                    </td>
+                </tr>
+            }
+        </table>
+        @Html.ActionLink("Seguir comprando", "ComprarAccesorios", null, new { @class = "seguir" })
+    </section>
+
+
+    <div class="derecha">
+        <h1>Resumen del pedido</h1>
+        <span class="total">Sub-total productos  </span>
+        <span class="total" style="float:right">S/.@Model.Sum(m => m.monto) </span>
+        <br /><br /><br />
+        @Html.ActionLink("Procesar compra", "Comprar", null, new { @class = "procesar" })
+    </div>
+
+
+</section>
+
+
+
+

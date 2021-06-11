@@ -1,0 +1,71 @@
+﻿@model PetOasis.Models.Alimento
+@using PetOasis.Models;
+
+@{
+    ViewBag.Title = "AgregarAli";
+}
+
+<h2>AgregarAli</h2>
+
+<div>
+    <h4>Alimento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.precio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.precio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.imgAli)
+        </dt>
+
+        <dd>
+            <img src="@Url.Content(Model.imgAli)" />
+        </dd>
+
+    </dl>
+</div>
+
+@using (Html.BeginForm("AgregarAli", "PetOasis", FormMethod.Post))
+{
+
+    @Html.Hidden("cod", Model.codigo)
+    @Html.Hidden("cantidad", Model.cantidad)
+    <div>
+        <em>Ingrese la cantidad</em>
+        @Html.TextBox("cant", 1)
+        <br />
+        <input type="submit" value="Procesar" class="btn btn-primary" />
+        @Html.ActionLink("Retornar", "ComprarAlimentos", null, new { @class = "btn btn-primary" })
+    </div>
+}
+
+<div>@ViewBag.mensaje</div>

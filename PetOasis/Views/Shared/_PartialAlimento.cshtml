@@ -1,0 +1,49 @@
+﻿@model IEnumerable<PetOasis.Models.Alimento>
+
+<style>
+    .img-mantenimiento {
+        width: 65px;
+        height: 65px;
+        border: 2px solid;
+        border-color: black;
+    }
+</style>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.imgAli)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.codigo.ToString(), "ManAlimento", new { id = item.codigo })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipo)
+        </td>
+        <td>
+            <img class="img-mantenimiento" src="@Url.Content(item.imgAli)" />
+        </td>
+        <td>
+            @Html.ActionLink("Kardex", "KardexAli", new { id = item.codigo })
+        </td>
+    </tr>
+}
+
+</table>

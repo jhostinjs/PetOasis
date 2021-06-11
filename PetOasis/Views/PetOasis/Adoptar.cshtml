@@ -1,0 +1,50 @@
+﻿@model IEnumerable<PetOasis.Models.Animal>
+@using PetOasis.Models
+<link rel="stylesheet" href="~/CSS/adoptar2.css" type="text/css" />
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimun-scale=1.0">
+@{
+    ViewBag.Title = "Adoptar";
+}
+
+<h2>Adoptar</h2>
+
+
+<div id="izquierda" style="text-align:left; float:left">
+    @using (Html.BeginForm())
+    {
+        <span id="textoizq" style="color:black">Tipo</span>
+        <br />
+        <select style="width:200px;" class="form-control" id="tipo" name="tipo">
+            <option value=0>Todos</option>
+            <option value=1>Perro</option>
+            <option value=2>Gato</option>
+        </select>
+        <br />
+        <span id="textoizq" style="color:black">Sexo</span>
+        <select style="width:200px;" class="form-control" id="sexo" name="sexo">
+            <option value="">Ambos</option>
+            <option value="Macho">Macho</option>
+            <option value="Hembra">Hembra</option>
+        </select>
+        <button>Procesar</button>
+        //@Html.CheckBox("sexo").Equals("Macho") <em>Macho</em>
+
+
+
+    }
+</div>
+
+<div class="portal">
+    
+    @foreach (var item in Model)
+    {
+    <a style="text-decoration : none;" class="item">
+        <div class="nombre">
+            <br />
+            <em style="font-style:normal;">@Html.DisplayFor(modelItem => item.nombre)🐾</em>
+        </div>
+        <img src="@Url.Content(string.Format("~/Imagenes/Animales/{0}.png", item.codigo))" />
+    </a>
+    }
+
+</div>

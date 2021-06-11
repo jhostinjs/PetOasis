@@ -1,0 +1,81 @@
+﻿@model PetOasis.Models.Accesorio
+@using PetOasis.Models
+<link rel="stylesheet" href="~/CSS/mantenimiento.css" type="text/css" />
+@{
+    ViewBag.Title = "KardexAcc";
+}
+
+<h2>Detalle Accesorios</h2>
+
+<div>
+    <dl style="color:white;" class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.precio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.precio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidad)
+        </dd>
+
+
+    </dl>
+</div>
+
+<div class="operacion">
+    @using (Html.BeginForm("KardexAcc", "PetOasis", FormMethod.Post))
+    {
+        @Html.Hidden("codigo", Model.codigo)
+        <table>
+            <tr sstyle="margin-bottom:10px;" class="lineak">
+                <td>Tipo de Operacion</td>
+                <td style="color:black;">@Html.DropDownList("ope", (SelectList)ViewBag.operacion, new { htmlAttributes = new { @class = "form-control" } })</td>
+            </tr>
+            <tr class="lineak">
+                <td>Cantidad</td>
+                <td>@Html.TextBox("cantidad", "0", new { @class = "form-control", @style = "color: black; margin-left:10px; margin-top:10px" })</td>
+            </tr>
+            <tr style=" margin-top:10px;" class="lineak">
+                <td>Detalle de la Operacion</td>
+                <td>@Html.TextBox("detalle", "", new { @class = "form-control", @style = "color: black; margin-left:10px; margin-top:10px;" })</td>
+            </tr>
+
+            <tr style="margin-top: 10px;">
+                <td colspan="3">
+                    <input type="submit" value="Agregar" class="btn btn-default" />
+                    @Html.ActionLink("Retornar", "ManAccesorio", null, new { @class = "btn btn-default" })
+                </td>
+            </tr>
+        </table>
+        <div>
+            @ViewBag.mensaje
+        </div>
+    }
+</div>
+
+<div class="listado">
+    @Html.Partial("_partialTarjetaAcc", (IEnumerable<TarjetaAcc>)ViewBag.tarjetas)
+</div>
