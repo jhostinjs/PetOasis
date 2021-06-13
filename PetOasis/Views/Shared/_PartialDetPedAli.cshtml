@@ -1,0 +1,44 @@
+﻿@model IEnumerable<PetOasis.Models.PedidoDetaAli>
+
+@{
+    ViewBag.Title = "_PartialDetPedAli";
+}
+
+<h2 style="text-align:left;">Comida</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.codigoimg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.producto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.precio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cantidad)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td style="padding-inline-end:0px;  width:5%;">
+            <img style="width:95%; height:55px;" src="@Url.Content(string.Format("~/Imagenes/Alimentos/{0}.jpg",item.codigoimg))" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.producto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.precio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cantidad)
+        </td>
+
+    </tr>
+}
+
+</table>

@@ -38,7 +38,7 @@
     
     @foreach (var item in Model)
     {
-    <a style="text-decoration : none;" class="item">
+    <a style="text-decoration: none;" class="item" href="@Url.Action("Animal", "PetOasis", new { id = item.codigo })">
         <div class="nombre">
             <br />
             <em style="font-style:normal;">@Html.DisplayFor(modelItem => item.nombre)🐾</em>

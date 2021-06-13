@@ -1,0 +1,131 @@
+﻿@model PetOasis.Models.PedidoHeader
+@using PetOasis.Models
+@{
+    ViewBag.Title = "DetallePedido";
+}
+
+<style>
+    .container.body-content {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
+    }
+    h2 {
+        text-align: center;
+    }
+
+    table {
+        margin: 0 auto;
+    }
+
+    body {
+        background-image: linear-gradient(to left, #ffd89b, #F8F3EC);
+        padding-top: 0px;
+    }
+
+    .arriba {
+        height: 40%;
+    }
+
+    .abajo {
+        margin-top:4%;
+        height: 58%;
+    }
+
+    .listAcc {
+        padding:2.1%;
+        color:white;
+        background-color: rgba(0, 0, 0, 0.76);
+    }
+
+    .izquierda {
+        width: 48%;
+        float: left;
+    }
+
+    h4:hover{
+        color:white;
+        text-decoration:none;
+    }
+
+    .listAli {
+        padding: 1%;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.76);
+        width: 48%;
+        float: right;
+    }
+    .general{
+        margin:5%;
+    }
+
+    .regresar {
+        margin-block-start: 5%;
+        padding: 2%;
+        padding-inline: 3%;
+        background-color: #0C0C0C;
+        color: white;
+        border-radius: 5px;
+        font-weight: 600;
+        float: left;
+    }
+
+    .regresar:hover{
+    text-decoration:none;
+    color:white;
+    }
+</style>
+
+<h2>Detalle del pedido</h2>
+
+<div class="general">
+    <div class="arriba">
+
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.numero)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.numero)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.fecha)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.fecha)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.usuario)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.usuario)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="abajo">
+        <div class="izquierda">
+            <div class="listAcc">
+                @Html.Partial("_partialDetPedAcc", (IEnumerable<PedidoDetaAcc>)ViewBag.accesoriodet)
+                @Html.ActionLink("Regresar al historial", "HistorialPedidos", null, new { @class = "regresar" })
+            </div>
+        </div>
+
+        <div class="listAli">
+            @Html.Partial("_partialDetPedAli", (IEnumerable<PedidoDetaAli>)ViewBag.alimentodet)
+        </div>
+
+
+    </div>
+
+
+
+</div>

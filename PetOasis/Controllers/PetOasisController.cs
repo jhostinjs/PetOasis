@@ -211,6 +211,7 @@ namespace PetOasis.Controllers
 
             return reg;
         }
+
         Accesorio BuscarAcc(int id=0)
         {
             Accesorio reg = accesorios().Where(c => c.codigo == id).FirstOrDefault();
@@ -218,6 +219,14 @@ namespace PetOasis.Controllers
                 reg = new Accesorio();
 
             return reg;
+        }
+
+        Animal BusAniDet(int? id = 0)
+        {
+            if (id == null)
+                return new Animal();
+            else
+                return animales().Where(c => c.codigo == id).FirstOrDefault();
         }
 
         Accesorio BusAccDet(int ? id = 0)
@@ -234,6 +243,14 @@ namespace PetOasis.Controllers
                 return new Alimento();
             else
                 return alimentos().Where(c => c.codigo == id).FirstOrDefault();
+        }
+
+        PedidoHeader BuscarPedido(string id="")
+        {
+            if (id == null)
+                return new PedidoHeader();
+            else
+                return pedidosnopar().Where(c => c.numero == id).FirstOrDefault();
         }
 
         IEnumerable<Animal> filtrazo(string nombre, List<SqlParameter> pars=null)
@@ -423,6 +440,109 @@ namespace PetOasis.Controllers
             return temporal;
         }
 
+        IEnumerable<PedidoHeader> pedidos(string nombre, SqlParameter usuario = null)
+        {
+            List<PedidoHeader> temporal = new List<PedidoHeader>();
+            using (SqlConnection cn = new SqlConnection(cadena))
+            {
+                SqlCommand cmd = new SqlCommand("sp_pedHed", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                if (usuario != null) cmd.Parameters.Add(usuario);
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    PedidoHeader reg = new PedidoHeader()
+                    {
+                        numero = dr.GetString(0),
+                        fecha = dr.GetDateTime(1),
+                        usuario = dr.GetString(2)
+                    };
+                    temporal.Add(reg);
+                }
+                dr.Close();
+                cn.Close();
+            }
+            return temporal;
+        }
+
+        IEnumerable<PedidoHeader> pedidosnopar()
+        {
+            List<PedidoHeader> temporal = new List<PedidoHeader>();
+            using (SqlConnection cn = new SqlConnection(cadena))
+            {
+                SqlCommand cmd = new SqlCommand("select*from tb_pedido_header", cn);
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    PedidoHeader reg = new PedidoHeader()
+                    {
+                        numero = dr.GetString(0),
+                        fecha = dr.GetDateTime(1),
+                        usuario = dr.GetString(2)
+                    };
+                    temporal.Add(reg);
+                }
+                dr.Close();
+                cn.Close();
+            }
+            return temporal;
+        }
+
+        IEnumerable<PedidoDetaAli> detallePedAli(string id = "")
+        {
+            List<PedidoDetaAli> temporal = new List<PedidoDetaAli>();
+            using (SqlConnection cn = new SqlConnection(cadena))
+            {
+                SqlCommand cmd = new SqlCommand("sp_pedidodetaAli", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("nro", id);
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    PedidoDetaAli reg = new PedidoDetaAli()
+                    {
+                        codigoimg = dr.GetInt32(0),
+                        producto = dr.GetString(1),
+                        precio = dr.GetDecimal(2),
+                        cantidad = dr.GetInt32(3)
+                    };
+                    temporal.Add(reg);
+                }
+                dr.Close();
+                cn.Close();
+            }
+            return temporal;
+        }
+
+        IEnumerable<PedidoDetaAcc> detallePedAcc(string id = "")
+        {
+            List<PedidoDetaAcc> temporal = new List<PedidoDetaAcc>();
+            using (SqlConnection cn = new SqlConnection(cadena))
+            {
+                SqlCommand cmd = new SqlCommand("sp_pedidodetaAcc", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("nro", id);
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    PedidoDetaAcc reg = new PedidoDetaAcc()
+                    {
+                        codigoimg = dr.GetInt32(0),
+                        producto = dr.GetString(1),
+                        precio = dr.GetDecimal(2),
+                        cantidad = dr.GetInt32(3)
+                    };
+                    temporal.Add(reg);
+                }
+                dr.Close();
+                cn.Close();
+            }
+            return temporal;
+        }
 
         // GET: Mantenimientos
         public ActionResult ManAnimal(int id=0)
@@ -1007,8 +1127,72 @@ namespace PetOasis.Controllers
 
         public ActionResult Aviso(string m)
         {
+            ViewBag.usuario = Nombre();
+
+            Session["carrito"] = new List<Item>();
+
             ViewBag.mensaje = m;
             return View();
+        }
+
+        public ActionResult HistorialPedidos()
+        {
+            ViewBag.usuario = Nombre();
+
+            if (Session["carrito"] == null)
+                Session["carrito"] = new List<Item>();
+
+            string usuario = (Session["login"] as Usuario).codigo;
+
+            IEnumerable<PedidoHeader> temporal = pedidos("sp_pedHed", new SqlParameter() { ParameterName = "@usu", Value = usuario});
+
+            return View(temporal);
+        }
+
+        public ActionResult DetallePedido(string id = "")
+        {
+            ViewBag.usuario = Nombre();
+
+            if (Session["carrito"] == null)
+                Session["carrito"] = new List<Item>();
+
+            PedidoHeader reg = BuscarPedido(id);
+            if (reg == null)
+                return RedirectToAction("HistorialPedidos");
+
+            ViewBag.alimentodet = detallePedAli(id);
+            ViewBag.accesoriodet = detallePedAcc(id);
+
+            return View(reg);
+        }
+        public ActionResult Animal(string id = "")
+        {
+            ViewBag.usuario = Nombre();
+
+            if (Session["carrito"] == null)
+                Session["carrito"] = new List<Item>();
+
+            PedidoHeader reg = BuscarPedido(id);
+            if (reg == null)
+                return RedirectToAction("HistorialPedidos");
+
+            ViewBag.alimentodet = detallePedAli(id);
+            ViewBag.accesoriodet = detallePedAcc(id);
+
+            return View(reg);
+        }
+
+        public ActionResult Animal(int? id = null)
+        {
+            ViewBag.usuario = Nombre();
+
+            if (Session["carrito"] == null)
+                Session["carrito"] = new List<Item>();
+
+            if (id == null)
+                return RedirectToAction("Adoptar");
+
+            return View(BusAniDet(id));
         }
     }
 }

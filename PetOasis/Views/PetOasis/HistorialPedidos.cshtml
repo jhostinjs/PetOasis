@@ -1,0 +1,55 @@
+﻿@model IEnumerable<PetOasis.Models.PedidoHeader>
+
+@{
+    ViewBag.Title = "HistorialPedidos";
+}
+
+<style>
+    h2 {
+        text-align: center;
+    }
+
+    table {
+        margin: 0 auto;
+    }
+
+    body {
+        background-image: linear-gradient(to left, #ffd89b, #F8F3EC);
+        padding-top: 0px;
+    }
+</style>
+
+<h2>HistorialPedidos</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.numero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.usuario)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.numero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.usuario)
+        </td>
+        <td>
+            @Html.ActionLink("Detalle pedido", "DetallePedido", new { id=item.numero }) 
+        </td>
+    </tr>
+}
+
+</table>
