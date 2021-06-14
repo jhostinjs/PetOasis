@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<PetOasis.Models.Animal>
 @using PetOasis.Models
-<link rel="stylesheet" href="~/CSS/adoptar2.css" type="text/css" />
+<link rel="stylesheet" href="~/CSS/adoptar.css" type="text/css" />
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimun-scale=1.0">
 @{
     ViewBag.Title = "Adoptar";
@@ -29,8 +29,6 @@
         <button>Procesar</button>
         //@Html.CheckBox("sexo").Equals("Macho") <em>Macho</em>
 
-
-
     }
 </div>
 
@@ -38,7 +36,7 @@
     
     @foreach (var item in Model)
     {
-    <a style="text-decoration: none;" class="item" href="@Url.Action("Animal", "PetOasis", new { id = item.codigo })">
+    <a style="text-decoration: none;" class="item" href="@Url.Action("AnimalAdoptar", "PetOasis", new { id = item.codigo })">
         <div class="nombre">
             <br />
             <em style="font-style:normal;">@Html.DisplayFor(modelItem => item.nombre)🐾</em>

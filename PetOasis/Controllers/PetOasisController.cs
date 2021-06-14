@@ -221,7 +221,7 @@ namespace PetOasis.Controllers
             return reg;
         }
 
-        Animal BusAniDet(int? id = 0)
+        Animal BusAniDet(int ? id = 0)
         {
             if (id == null)
                 return new Animal();
@@ -887,6 +887,9 @@ namespace PetOasis.Controllers
 
         public ActionResult Agregar(int? id = null)
         {
+            if (Session["carrito"] == null)
+                Session["carrito"] = new List<Item>();
+
             ViewBag.usuario = Nombre();
 
             if (id == null)
@@ -1182,17 +1185,18 @@ namespace PetOasis.Controllers
             return View(reg);
         }
 
-        public ActionResult Animal(int? id = null)
+        public ActionResult AnimalAdoptar(int? id = null)
         {
-            ViewBag.usuario = Nombre();
-
             if (Session["carrito"] == null)
                 Session["carrito"] = new List<Item>();
 
+            ViewBag.usuario = Nombre();
+
             if (id == null)
                 return RedirectToAction("Adoptar");
-
+            //Si id tiene valor, enviamos el producto seleccionado
             return View(BusAniDet(id));
         }
+
     }
 }

@@ -45,7 +45,7 @@ h1 {
     padding: 2%;
     padding-top: 1%;
     position: relative;
-    height: 78%;
+    height: 84%;
 }
 .general {
     width:94%;
@@ -65,11 +65,10 @@ h1 {
     float: left;
 }
 .procesar {
-    margin-top:50px;
+    display:block;
     padding-block: 4.6%;
-    padding-inline: 32%;
+    padding-inline: 31%;
     background-color: #0C0C0C;
-    width: 50%;
     color: white;
     border-radius: 5px;
     font-weight: bold;

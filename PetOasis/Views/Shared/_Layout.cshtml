@@ -8,48 +8,51 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body >
-    <nav style="border-radius:0px; margin-bottom:0px;" class="navbar navbar-inverse">
+<body style="font-family: 'Chelsea Market'; ">
+    <nav style="background-color:#131313; border-radius:0px; margin-bottom:0px;" class="navbar navbar-inverse">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">WebSiteName</a>
+            <div class="navbar-header" style="margin-right:10px;">
+                <img style="width:30px; height:40px; padding-top:10px;" src="~/Imagenes/logo.png">
+                <a style="color: darkcyan;" class="navbar-brand" href="#">Pet Oasis</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li>@Html.ActionLink("Adoptar", "Adoptar", "PetOasis")</li>
+                <li class="active">@Html.ActionLink("Principal", "Principal", "PetOasis", new { @style = "color:#C0C0C0;" })</li>
+                <li>@Html.ActionLink("Adoptar", "Adoptar", "PetOasis", new { @style = "color:#C0C0C0;" })</li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a style="color:#C0C0C0" class="dropdown-toggle" data-toggle="dropdown" href="#">
                         Tienda
                         <span class="caret"></span>
                     </a>
                     <ul style="background:#222;" class="dropdown-menu">
-                        <li>@Html.ActionLink("Accesorios", "ComprarAccesorios", "PetOasis")</li>
-                        <li>@Html.ActionLink("Comida", "ComprarAlimentos", "PetOasis")</li>
+                        <li>@Html.ActionLink("Accesorios", "ComprarAccesorios", "PetOasis", null, new { @style = "color:#C0C0C0;" })</li>
+                        <li>@Html.ActionLink("Comida", "ComprarAlimentos", "PetOasis", null, new { @style = "color:#C0C0C0;" })</li>
                     </ul>
                 </li>
+                <li>@Html.ActionLink("Nosotros", "Nosotros", "PetOasis", new { @style = "color:#C0C0C0;" })</li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 
-                <li style="display:flex;"><img style="width:30px; height:40px; padding-top:10px;" src="~/Imagenes/carrito.png">@Html.ActionLink("Carrito", "Carrito", "PetOasis")</li>
-                <li style="display:flex;font-family:Arial, Helvetica, sans-serif;">
+                <li style="display:flex;"><img style="width:30px; height:40px; padding-top:10px;" src="~/Imagenes/carro.png">@Html.ActionLink("Carrito", "Carrito", "PetOasis", new { @style = "color:#C0C0C0;" })</li>
+                <li style="display:flex;">
                     <!--en esta seccion visualizamos al usuario-->
 
                     @if (ViewBag.usuario == null)
                     {
-                        <a >@Html.ActionLink("Login", "Inicio", "PetOasis")</a>
+                        <img style="width: 23px; height: 37px; padding-top: 14px;" src="~/Imagenes/login.png">@Html.ActionLink("Login", "Inicio", "PetOasis")
                     }
                     else
                     {
-                <li class="dropdown">
-                    <a style="color: #9d9d9d;" class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" href="#">
+                <li style="display:flex;" class="dropdown">
+                    <img style="width: 23px; height: 37px; padding-top: 14px;" src="~/Imagenes/user.png">
+                    <a style="color: #C0C0C0;" class="dropdown-toggle " data-toggle="dropdown" href="#">
                         @ViewBag.usuario
                         <span class="caret"></span>
                     </a>
-                    <ul style="background:#222;" class="dropdown-menu">
-                        <li>@Html.ActionLink("Perfil", "Perfil")</li>
-                        <li>@Html.ActionLink("Historial de compra", "HistorialPedidos", "PetOasis")</li>
-                        <li>@Html.ActionLink("Cerrar Sesion", "Cerrar")</li>
+                    <ul style="background:#222; color:white;" class="dropdown-menu">
+                        <li>@Html.ActionLink("Perfil", "Perfil", null, new { @style = "color:#C0C0C0;" })</li>
+                        <li>@Html.ActionLink("Historial de compra", "HistorialPedidos", "PetOasis", null, new { @style = "color:#C0C0C0;" })</li>
+                        <li>@Html.ActionLink("Cerrar Sesion", "Cerrar", null, new { @style = "color:#C0C0C0;" })</li>
                     </ul>
                 </li>
                 }
