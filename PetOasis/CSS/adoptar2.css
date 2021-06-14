@@ -4,6 +4,22 @@ body {
     padding-top: 0px;
 }
 
+.head1 {
+    position: absolute;
+    transform: translate(50%, 120%);
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 70px;
+}
+
+.head2 {
+    position: absolute;
+    transform: translate(30%, 600%);
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 30px;
+}
+
 .container.body-content {
     margin-left: 0;
     margin-right: 0;
@@ -46,7 +62,7 @@ h2 {
     border: 3px solid;
     border-color: #1F1C17;
     border-radius: 5px;
-    background-color:white;
+    background-color: #E2F4F7;
 }
 
 .item:hover {

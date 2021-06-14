@@ -149,10 +149,11 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="CSS\adoptar.css" />
+    <Content Include="CSS\adoptar2.css" />
     <Content Include="CSS\carrito3.css" />
-    <Content Include="CSS\compraracc2.css" />
+    <Content Include="CSS\compraracc.css" />
     <Content Include="CSS\mantenimiento.css" />
+    <Content Include="CSS\solicitarAdop2.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -186,6 +187,7 @@
     <Content Include="Imagenes\Accesorios\7.jpg" />
     <Content Include="Imagenes\Accesorios\8.jpg" />
     <Content Include="Imagenes\Accesorios\9.jpg" />
+    <Content Include="Imagenes\adopta.jpg" />
     <Content Include="Imagenes\Alimentos\1.jpg" />
     <Content Include="Imagenes\Alimentos\10.jpg" />
     <Content Include="Imagenes\Alimentos\11.jpg" />
@@ -244,6 +246,8 @@
     <Content Include="Imagenes\Animales\9.png" />
     <Content Include="Imagenes\back_celeste.png" />
     <Content Include="Imagenes\carro.png" />
+    <Content Include="Imagenes\headerAcc.jpg" />
+    <Content Include="Imagenes\headerAli.jpg" />
     <Content Include="Imagenes\login.png" />
     <Content Include="Imagenes\logo.png" />
     <Content Include="Imagenes\user.png" />
@@ -290,7 +294,7 @@
     <Content Include="Views\PetOasis\KardexAli.cshtml" />
     <Content Include="Views\Shared\_PartialTarjetaAcc.cshtml" />
     <Content Include="Views\Shared\_PartialTarjetaAli.cshtml" />
-    <Content Include="Views\PetOasis\Inicio.cshtml" />
+    <Content Include="Views\PetOasis\Login.cshtml" />
     <Content Include="Views\PetOasis\Comprar.cshtml" />
     <Content Include="Views\Shared\_PartialCarrito.cshtml" />
     <Content Include="Views\PetOasis\Aviso.cshtml" />
@@ -299,6 +303,7 @@
     <Content Include="Views\Shared\_PartialDetPedAcc.cshtml" />
     <Content Include="Views\Shared\_PartialDetPedAli.cshtml" />
     <Content Include="Views\PetOasis\AnimalAdoptar.cshtml" />
+    <Content Include="Views\PetOasis\SolicitarAdopcion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

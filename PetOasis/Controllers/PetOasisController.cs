@@ -1021,7 +1021,7 @@ namespace PetOasis.Controllers
                 return "Bienvenido "+(Session["login"] as Usuario).nombre +" "+ (Session["login"] as Usuario).apellido;
         }
 
-        public ActionResult Inicio()
+        public ActionResult Login()
         {
             if (Session["carrito"] == null)
                 Session["carrito"] = new List<Item>();
@@ -1030,7 +1030,7 @@ namespace PetOasis.Controllers
             return View();
         }
 
-        [HttpPost]public ActionResult Inicio(string login, string clave)
+        [HttpPost]public ActionResult Login(string login, string clave)
         {
             ViewBag.usuario = Nombre();
 
@@ -1060,7 +1060,7 @@ namespace PetOasis.Controllers
 
             if (Session["login"] == null)
             {
-                return RedirectToAction("Inicio");
+                return RedirectToAction("Login");
             }
             else
             {
@@ -1194,6 +1194,29 @@ namespace PetOasis.Controllers
 
             if (id == null)
                 return RedirectToAction("Adoptar");
+            //Si id tiene valor, enviamos el producto seleccionado
+            return View(BusAniDet(id));
+        }
+
+        public ActionResult SolicitarAdopcion(int? id = null)
+        {
+            if (Session["carrito"] == null)
+                Session["carrito"] = new List<Item>();
+
+            ViewBag.usuario = Nombre();
+
+            if (id == null)
+                return RedirectToAction("Adoptar");
+
+            if (Session["login"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+
+            }
+
             //Si id tiene valor, enviamos el producto seleccionado
             return View(BusAniDet(id));
         }
