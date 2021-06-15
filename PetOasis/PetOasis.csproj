@@ -250,6 +250,9 @@
     <Content Include="Imagenes\headerAli.jpg" />
     <Content Include="Imagenes\login.png" />
     <Content Include="Imagenes\logo.png" />
+    <Content Include="Imagenes\nosotros1.jpg" />
+    <Content Include="Imagenes\nosotros2.jpg" />
+    <Content Include="Imagenes\nosotros3.jpg" />
     <Content Include="Imagenes\user.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -304,6 +307,8 @@
     <Content Include="Views\Shared\_PartialDetPedAli.cshtml" />
     <Content Include="Views\PetOasis\AnimalAdoptar.cshtml" />
     <Content Include="Views\PetOasis\SolicitarAdopcion.cshtml" />
+    <Content Include="Views\PetOasis\Principal.cshtml" />
+    <Content Include="Views\PetOasis\Nosotros.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

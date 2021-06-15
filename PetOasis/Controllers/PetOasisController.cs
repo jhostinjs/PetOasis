@@ -1053,7 +1053,7 @@ namespace PetOasis.Controllers
             Session["login"] = null;
             return RedirectToAction("Adoptar");
         }
-
+        
         public ActionResult Comprar()
         {
             ViewBag.usuario = Nombre();
@@ -1219,6 +1219,18 @@ namespace PetOasis.Controllers
 
             //Si id tiene valor, enviamos el producto seleccionado
             return View(BusAniDet(id));
+        }
+
+        public ActionResult Principal()
+        {
+
+            return View();
+        }
+
+        public ActionResult Nosotros()
+        {
+
+            return View();
         }
 
     }
