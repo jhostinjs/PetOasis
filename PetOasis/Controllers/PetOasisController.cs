@@ -547,7 +547,7 @@ namespace PetOasis.Controllers
         // GET: Mantenimientos
         public ActionResult ManAnimal(int id=0)
         {
-            ViewBag.usuario = Nombre();
+            ViewBag.usuario = NombreAdmin();
 
             if (Session["carrito"] == null)
                 Session["carrito"] = new List<Item>();
@@ -657,7 +657,7 @@ namespace PetOasis.Controllers
 
         public ActionResult ManAccesorio(int id=0)
         {
-            ViewBag.usuario = Nombre();
+            ViewBag.usuario = NombreAdmin();
 
             if (Session["carrito"] == null)
                 Session["carrito"] = new List<Item>();
@@ -674,7 +674,7 @@ namespace PetOasis.Controllers
 
         public ActionResult KardexAcc(int id = 0)
         {
-            ViewBag.usuario = Nombre();
+            ViewBag.usuario = NombreAdmin();
 
             Accesorio reg = BusAccDet(id);
             if (reg == null)
@@ -688,7 +688,7 @@ namespace PetOasis.Controllers
 
         [HttpPost]public ActionResult KardexAcc(int codigo, string detalle, int ope, int cantidad)
         {
-            ViewBag.usuario = Nombre();
+            ViewBag.usuario = NombreAdmin();
 
             SqlConnection cn = new SqlConnection(cadena);
             cn.Open();
@@ -747,7 +747,7 @@ namespace PetOasis.Controllers
 
         public ActionResult ManAlimento(int id = 0)
         {
-            ViewBag.usuario = Nombre();
+            ViewBag.usuario = NombreAdmin();
 
             if (Session["carrito"] == null)
                 Session["carrito"] = new List<Item>();
@@ -763,7 +763,7 @@ namespace PetOasis.Controllers
 
         public ActionResult KardexAli(int id = 0)
         {
-            ViewBag.usuario = Nombre();
+            ViewBag.usuario = NombreAdmin();
 
             Alimento reg = BusAliDet(id);
             if (reg == null)
@@ -777,7 +777,7 @@ namespace PetOasis.Controllers
 
         [HttpPost]public ActionResult KardexAli(int codigo, string detalle, int ope, int cantidad)
         {
-            ViewBag.usuario = Nombre();
+            ViewBag.usuario = NombreAdmin();
 
             SqlConnection cn = new SqlConnection(cadena);
             cn.Open();
@@ -836,7 +836,14 @@ namespace PetOasis.Controllers
 
         public ActionResult Adoptar(int tipo=0, string sexo="")
         {
-            ViewBag.usuario = Nombre();
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
 
             if (Session["carrito"] == null)
                 Session["carrito"] = new List<Item>();
@@ -857,7 +864,14 @@ namespace PetOasis.Controllers
 
         public ActionResult ComprarAccesorios(int tipo = 0, int categoria = 0)
         {
-            ViewBag.usuario = Nombre();
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
 
             if (Session["carrito"] == null)
                 Session["carrito"] = new List<Item>();
@@ -875,7 +889,14 @@ namespace PetOasis.Controllers
 
         public ActionResult ComprarAlimentos(int tipo = 0)
         {
-            ViewBag.usuario = Nombre();
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
 
             if (Session["carrito"] == null)
                 Session["carrito"] = new List<Item>();
@@ -890,7 +911,14 @@ namespace PetOasis.Controllers
             if (Session["carrito"] == null)
                 Session["carrito"] = new List<Item>();
 
-            ViewBag.usuario = Nombre();
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
 
             if (id == null)
                 return RedirectToAction("ComprarAccesorios");
@@ -900,7 +928,14 @@ namespace PetOasis.Controllers
 
         [HttpPost]public ActionResult Agregar(int cod, int cantidad, int cant)
         {
-            ViewBag.usuario = Nombre();
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
             Accesorio reg = BusAccDet(cod);
 
             if (cant > cantidad)
@@ -928,7 +963,14 @@ namespace PetOasis.Controllers
             if (Session["carrito"] == null)
                 Session["carrito"] = new List<Item>();
 
-            ViewBag.usuario = Nombre();
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
 
             if (id == null)
                 return RedirectToAction("ComprarAlimentos");
@@ -938,7 +980,14 @@ namespace PetOasis.Controllers
 
         [HttpPost] public ActionResult AgregarAli(int cod, int cantidad, int cant)
         {
-            ViewBag.usuario = Nombre();
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
 
             Alimento reg = BusAliDet(cod);
 
@@ -964,7 +1013,14 @@ namespace PetOasis.Controllers
 
         public ActionResult Carrito()
         {
-            ViewBag.usuario = Nombre();
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
 
             //visualizar el contenido del Session["carrito"], productos seleccionado
             return View((List<Item>)Session["carrito"]);
@@ -972,7 +1028,14 @@ namespace PetOasis.Controllers
 
         public ActionResult Delete(int id)
         {
-            ViewBag.usuario = Nombre();
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
 
             List<Item> temporal = (List<Item>)Session["carrito"];
             //buscar
@@ -1012,6 +1075,38 @@ namespace PetOasis.Controllers
             }
             return reg;
         }
+        
+
+        Usuario BuscarAdmin(string login, string clave)
+        {
+
+            Usuario reg = null;
+
+            using (SqlConnection cn = new SqlConnection(cadena))
+            {
+                SqlCommand cmd = new SqlCommand("sp_logueoadmin", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", login);
+                cmd.Parameters.AddWithValue("@clave", clave);
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    reg = new Usuario()
+                    {
+                        codigo = dr.GetString(0),
+                        contraseña = dr["pwdUsu"].ToString(),
+                        nombre = dr["nomUsu"].ToString(),
+                        apellido = dr["apeUsu"].ToString(),
+                        telefono = dr["telUsu"].ToString(),
+                        email = dr["emailUsu"].ToString()
+                    };
+                }
+                dr.Close();
+                cn.Close();
+            }
+            return reg;
+        }
 
         string Nombre()
         {
@@ -1020,19 +1115,40 @@ namespace PetOasis.Controllers
             else
                 return "Bienvenido "+(Session["login"] as Usuario).nombre +" "+ (Session["login"] as Usuario).apellido;
         }
+        string NombreAdmin()
+        {
+            if (Session["loginadmin"] == null)
+                return null;
+            else
+                return "Bienvenido " + (Session["loginadmin"] as Usuario).nombre + " " + (Session["loginadmin"] as Usuario).apellido;
+        }
 
         public ActionResult Login()
         {
             if (Session["carrito"] == null)
                 Session["carrito"] = new List<Item>();
 
-            ViewBag.usuario = Nombre();
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
             return View();
         }
 
         [HttpPost]public ActionResult Login(string login, string clave)
         {
-            ViewBag.usuario = Nombre();
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
 
             Usuario reg = Buscar(login, clave);
 
@@ -1048,15 +1164,76 @@ namespace PetOasis.Controllers
             }
         }
 
+        public ActionResult LoginAdmin()
+        {
+            if (Session["carrito"] == null)
+                Session["carrito"] = new List<Item>();
+
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
+            return View();
+        }
+
+        [HttpPost]public ActionResult LoginAdmin(string login, string clave)
+        {
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
+
+            Usuario reg = BuscarAdmin(login, clave);
+
+            if (reg == null)
+            {
+                ViewBag.mensaje = "Login o clave de usuario admin incorrecto";
+                return View();
+            }
+            else
+            {
+                Session["loginadmin"] = reg;
+                return RedirectToAction("MenuAdmin");
+            }
+        }
+
+
         public ActionResult Cerrar()
         {
             Session["login"] = null;
+            Session["loginadmin"] = null;
             return RedirectToAction("Adoptar");
         }
-        
+
+        public ActionResult MenuAdmin()
+        {
+            ViewBag.usuario = NombreAdmin();
+            if (Session["loginadmin"] == null)
+            {
+                return RedirectToAction("LoginAdmin");
+            }
+
+            return View();
+        }
+
         public ActionResult Comprar()
         {
-            ViewBag.usuario = Nombre();
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
 
             if (Session["login"] == null)
             {
@@ -1065,9 +1242,9 @@ namespace PetOasis.Controllers
             else
             {
                 ViewBag.usuario = Nombre();
-                //Envio a la Vista el contenido del Session carrito
+
                 ViewBag.carrito = (Session["carrito"] as List<Item>);
-                //Envio a la vista los datos del cliente, hace la compra
+
                 return View(Session["login"] as Usuario);
             }
         }
@@ -1130,7 +1307,14 @@ namespace PetOasis.Controllers
 
         public ActionResult Aviso(string m)
         {
-            ViewBag.usuario = Nombre();
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
 
             Session["carrito"] = new List<Item>();
 
@@ -1140,7 +1324,14 @@ namespace PetOasis.Controllers
 
         public ActionResult HistorialPedidos()
         {
-            ViewBag.usuario = Nombre();
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
 
             if (Session["carrito"] == null)
                 Session["carrito"] = new List<Item>();
@@ -1154,7 +1345,14 @@ namespace PetOasis.Controllers
 
         public ActionResult DetallePedido(string id = "")
         {
-            ViewBag.usuario = Nombre();
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
 
             if (Session["carrito"] == null)
                 Session["carrito"] = new List<Item>();
@@ -1170,7 +1368,14 @@ namespace PetOasis.Controllers
         }
         public ActionResult Animal(string id = "")
         {
-            ViewBag.usuario = Nombre();
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
 
             if (Session["carrito"] == null)
                 Session["carrito"] = new List<Item>();
@@ -1190,7 +1395,14 @@ namespace PetOasis.Controllers
             if (Session["carrito"] == null)
                 Session["carrito"] = new List<Item>();
 
-            ViewBag.usuario = Nombre();
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
 
             if (id == null)
                 return RedirectToAction("Adoptar");
@@ -1203,7 +1415,14 @@ namespace PetOasis.Controllers
             if (Session["carrito"] == null)
                 Session["carrito"] = new List<Item>();
 
-            ViewBag.usuario = Nombre();
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
 
             if (id == null)
                 return RedirectToAction("Adoptar");
@@ -1221,15 +1440,22 @@ namespace PetOasis.Controllers
             return View(BusAniDet(id));
         }
 
-        public ActionResult Principal()
+        /*public ActionResult Principal()
         {
 
             return View();
-        }
+        }*/
 
         public ActionResult Nosotros()
         {
-
+            if (NombreAdmin() == null)
+            {
+                ViewBag.usuario = Nombre();
+            }
+            if (Nombre() == null)
+            {
+                ViewBag.usuario = NombreAdmin();
+            }
             return View();
         }
 

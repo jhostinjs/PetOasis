@@ -13,7 +13,7 @@
         <div style="height:55px;" class="container-fluid">
             <div class="navbar-header" style="margin-right:10px;">
                 <img style="width:30px; height:40px; padding-top:10px;" src="~/Imagenes/logo.png">
-                <a style="color: darkcyan;" class="navbar-brand" href="#">Pet Oasis</a>
+                @Html.ActionLink("Pet Oasis", "MenuAdmin", "PetOasis", new { @class= "navbar-brand", @style = "color: darkcyan;" })
             </div>
             <ul style="height:55px;" class="nav navbar-nav">
                 <!--<li>Html.ActionLink("Principal", "Principal", "PetOasis", new { style = "color:#C0C0C0;height:55px;" })</li>-->

@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "LoginAdmin";
+}
+<style>
+    h2 {
+        text-align: center;
+    }
+
+    table {
+        margin: 0 auto;
+    }
+
+    body {
+        background-image: linear-gradient(to left, #ffd89b, #F8F3EC);
+        padding-top: 0px;
+    }
+</style>
+
+<h2>Login Admin</h2>
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>Usuario</td>
+            <td>@Html.TextBox("login", "")</td>
+        </tr>
+        <tr>
+            <td>Clave</td>
+            <td>@Html.TextBox("clave", "", new { @type = "password" })</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Aceptar" class="btn btn-default" />
+                @Html.ActionLink("Ir al Inicio", "Adoptar", null, new { @class = "btn btn-default" })
+            </td>
+        </tr>
+    </table>
+}
+<div>
+    @ViewBag.mensaje
+</div>

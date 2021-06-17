@@ -309,6 +309,8 @@
     <Content Include="Views\PetOasis\SolicitarAdopcion.cshtml" />
     <Content Include="Views\PetOasis\Principal.cshtml" />
     <Content Include="Views\PetOasis\Nosotros.cshtml" />
+    <Content Include="Views\PetOasis\LoginAdmin.cshtml" />
+    <Content Include="Views\PetOasis\MenuAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
