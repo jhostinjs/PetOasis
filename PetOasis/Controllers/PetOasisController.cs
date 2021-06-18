@@ -1336,6 +1336,13 @@ namespace PetOasis.Controllers
             if (Session["carrito"] == null)
                 Session["carrito"] = new List<Item>();
 
+            if (Session["login"] == null)
+            {
+                Session["login"] = null;
+                Session["loginadmin"] = null;
+                return RedirectToAction("Login");
+            }
+
             string usuario = (Session["login"] as Usuario).codigo;
 
             IEnumerable<PedidoHeader> temporal = pedidos("sp_pedHed", new SqlParameter() { ParameterName = "@usu", Value = usuario});
