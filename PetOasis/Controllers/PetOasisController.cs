@@ -212,7 +212,7 @@ namespace PetOasis.Controllers
             return reg;
         }
 
-        Accesorio BuscarAcc(int id=0)
+        Accesorio BuscarAcc(int id = 0)
         {
             Accesorio reg = accesorios().Where(c => c.codigo == id).FirstOrDefault();
             if (reg == null)
@@ -221,7 +221,7 @@ namespace PetOasis.Controllers
             return reg;
         }
 
-        Animal BusAniDet(int ? id = 0)
+        Animal BusAniDet(int? id = 0)
         {
             if (id == null)
                 return new Animal();
@@ -229,7 +229,7 @@ namespace PetOasis.Controllers
                 return animales().Where(c => c.codigo == id).FirstOrDefault();
         }
 
-        Accesorio BusAccDet(int ? id = 0)
+        Accesorio BusAccDet(int? id = 0)
         {
             if (id == null)
                 return new Accesorio();
@@ -245,7 +245,7 @@ namespace PetOasis.Controllers
                 return alimentos().Where(c => c.codigo == id).FirstOrDefault();
         }
 
-        PedidoHeader BuscarPedido(string id="")
+        PedidoHeader BuscarPedido(string id = "")
         {
             if (id == null)
                 return new PedidoHeader();
@@ -253,7 +253,7 @@ namespace PetOasis.Controllers
                 return pedidosnopar().Where(c => c.numero == id).FirstOrDefault();
         }
 
-        IEnumerable<Animal> filtrazo(string nombre, List<SqlParameter> pars=null)
+        IEnumerable<Animal> filtrazo(string nombre, List<SqlParameter> pars = null)
         {
             List<Animal> temporal = new List<Animal>();
             using (SqlConnection cn = new SqlConnection(cadena))
@@ -287,7 +287,7 @@ namespace PetOasis.Controllers
         }
 
 
-        IEnumerable<Accesorio> filtrazoAcc(string nombre, List<SqlParameter> pars= null)
+        IEnumerable<Accesorio> filtrazoAcc(string nombre, List<SqlParameter> pars = null)
         {
             List<Accesorio> temporal = new List<Accesorio>();
             using (SqlConnection cn = new SqlConnection(cadena))
@@ -545,8 +545,13 @@ namespace PetOasis.Controllers
         }
 
         // GET: Mantenimientos
-        public ActionResult ManAnimal(int id=0)
+        public ActionResult ManAnimal(int id = 0)
         {
+            if (Session["loginadmin"] == null)
+            {
+                return RedirectToAction("LoginAdmin");
+            }
+
             ViewBag.usuario = NombreAdmin();
 
             if (Session["carrito"] == null)
@@ -562,8 +567,7 @@ namespace PetOasis.Controllers
             return View(reg);
         }
 
-        [HttpPost]
-        public ActionResult ManAnimal(Animal reg, HttpPostedFileBase archivo)
+        [HttpPost] public ActionResult ManAnimal(Animal reg, HttpPostedFileBase archivo)
         {
             if (!ModelState.IsValid)
             {
@@ -578,11 +582,12 @@ namespace PetOasis.Controllers
 
             if (archivo == null)
             {
-                ViewBag.mensaje = "No ha seleccionado ningun archivo de imagen";
+                ViewBag.mensaje = "Seleccione un archivo de imagen";
                 ViewBag.tipoAni = new SelectList(tiposani(), "codigo", "tipo");
                 ViewBag.estados = new SelectList(estados(), "codigo", "nombre", reg.estado);
                 ViewBag.disponi = new SelectList(dispo(), "codigo", "descripcion", reg.disponibilidad);
                 ViewBag.animales = animales();
+
                 return View(reg);
             }
 
@@ -592,7 +597,7 @@ namespace PetOasis.Controllers
             SqlConnection cn = new SqlConnection(cadena);
             try
             {
-                if (Buscar(reg.codigo) == null)
+                if (BusAniDet(reg.codigo) == null)
                 {
                 SqlCommand cmd = new SqlCommand("sp_agregarAni", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -606,14 +611,14 @@ namespace PetOasis.Controllers
                 cmd.Parameters.AddWithValue("@est", reg.estado);
                 cmd.Parameters.AddWithValue("@nac", reg.nacimiento);
                 cmd.Parameters.AddWithValue("@dis", reg.disponibilidad);
-                cmd.Parameters.AddWithValue("@img", reg.imgAni);
+                cmd.Parameters.AddWithValue("@img", ruta);
                 cn.Open();
 
                 int i = cmd.ExecuteNonQuery();
-                if (i == 1){
+                if (i == 1) {
 
                     archivo.SaveAs(Server.MapPath(ruta));
-                    ViewBag.mensaje = "Archivo agregado";
+                    ViewBag.mensaje = "Animal agregado";
                 }
                 }
 
@@ -636,9 +641,8 @@ namespace PetOasis.Controllers
                     int i = cmd.ExecuteNonQuery();
                     if (i == 1)
                     {
-                        //Si inserto el registro, guardo el archivo en el servidor -- Utilice Server.MapPath()
                         archivo.SaveAs(Server.MapPath(ruta));
-                        ViewBag.mensaje = "Archivo actualizado";
+                        ViewBag.mensaje = "Animal actualizado";
                     }
                 }
 
@@ -655,8 +659,13 @@ namespace PetOasis.Controllers
             return View(reg);
         }
 
-        public ActionResult ManAccesorio(int id=0)
+        public ActionResult ManAccesorio(int id = 0)
         {
+            if (Session["loginadmin"] == null)
+            {
+                return RedirectToAction("LoginAdmin");
+            }
+
             ViewBag.usuario = NombreAdmin();
 
             if (Session["carrito"] == null)
@@ -672,6 +681,91 @@ namespace PetOasis.Controllers
             return View(reg);
         }
 
+        [HttpPost]public ActionResult ManAccesorio(Accesorio reg, HttpPostedFileBase archivo)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.categoria = new SelectList(categorias(), "codigo", "descripcion", reg.categoria);
+                ViewBag.disponi = new SelectList(dispo(), "codigo", "descripcion", reg.disponibilidad);
+                ViewBag.tipoAni = new SelectList(tiposani(), "codigo", "tipo", reg.tipo);
+                ViewBag.accesorio = accesorios();
+
+                return View(reg);
+            }
+
+            if (archivo == null)
+            {
+                ViewBag.mensaje = "Seleccione un archivo de imagen";
+                ViewBag.categoria = new SelectList(categorias(), "codigo", "descripcion", reg.categoria);
+                ViewBag.disponi = new SelectList(dispo(), "codigo", "descripcion", reg.disponibilidad);
+                ViewBag.tipoAni = new SelectList(tiposani(), "codigo", "tipo", reg.tipo);
+                ViewBag.accesorio = accesorios();
+
+                return View(reg);
+            }
+
+
+            string ruta = "~/Imagenes/Accesorios/" + Path.GetFileName(archivo.FileName);
+            SqlConnection cn = new SqlConnection(cadena);
+            try
+            {
+                if (BusAccDet(reg.codigo) == null)
+                {
+                    SqlCommand cmd = new SqlCommand("sp_agregarAcc", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@cod", reg.codigo);
+                    cmd.Parameters.AddWithValue("@nom", reg.nombre);
+                    cmd.Parameters.AddWithValue("@pre", reg.precio);
+                    cmd.Parameters.AddWithValue("@can", reg.cantidad);
+                    cmd.Parameters.AddWithValue("@cat", reg.categoria);
+                    cmd.Parameters.AddWithValue("@tip", reg.tipo);
+                    cmd.Parameters.AddWithValue("@dis", reg.disponibilidad);
+                    cmd.Parameters.AddWithValue("@img", ruta);
+                    cn.Open();
+                    int i = cmd.ExecuteNonQuery();
+                    if (i == 2)
+                    {
+                        archivo.SaveAs(Server.MapPath(ruta));
+                        ViewBag.mensaje = "Accesorios registrado";
+                    }
+                }
+
+                else
+                {
+                    SqlCommand cmd = new SqlCommand("sp_updateAcc", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@cod", reg.codigo);
+                    cmd.Parameters.AddWithValue("@nom", reg.nombre);
+                    cmd.Parameters.AddWithValue("@pre", reg.precio);
+                    cmd.Parameters.AddWithValue("@can", reg.cantidad);
+                    cmd.Parameters.AddWithValue("@cat", reg.categoria);
+                    cmd.Parameters.AddWithValue("@tip", reg.tipo);
+                    cmd.Parameters.AddWithValue("@dis", reg.disponibilidad);
+                    cmd.Parameters.AddWithValue("@img", ruta);
+                    cn.Open();
+                    int i = cmd.ExecuteNonQuery();
+                    if (i == 1)
+                    {
+                        archivo.SaveAs(Server.MapPath(ruta));
+                        ViewBag.mensaje = "Accesorio actualizado";
+                    }
+                }
+
+            }
+            catch (SqlException ex) { ViewBag.mensaje = ex.Message; }
+            finally { cn.Close(); }
+
+
+            ViewBag.categoria = new SelectList(categorias(), "codigo", "descripcion", reg.categoria);
+            ViewBag.disponi = new SelectList(dispo(), "codigo", "descripcion", reg.disponibilidad);
+            ViewBag.tipoAni = new SelectList(tiposani(), "codigo", "tipo", reg.tipo);
+            ViewBag.accesorio = accesorios();
+
+            return View(reg);
+        }
+
+
         public ActionResult KardexAcc(int id = 0)
         {
             ViewBag.usuario = NombreAdmin();
@@ -686,7 +780,7 @@ namespace PetOasis.Controllers
             return View(reg);
         }
 
-        [HttpPost]public ActionResult KardexAcc(int codigo, string detalle, int ope, int cantidad)
+        [HttpPost] public ActionResult KardexAcc(int codigo, string detalle, int ope, int cantidad)
         {
             ViewBag.usuario = NombreAdmin();
 
@@ -747,6 +841,10 @@ namespace PetOasis.Controllers
 
         public ActionResult ManAlimento(int id = 0)
         {
+            if (Session["loginadmin"] == null)
+            {
+                return RedirectToAction("LoginAdmin");
+            }
             ViewBag.usuario = NombreAdmin();
 
             if (Session["carrito"] == null)
@@ -761,6 +859,88 @@ namespace PetOasis.Controllers
             return View(reg);
         }
 
+
+        [HttpPost]public ActionResult ManAlimento(Alimento reg, HttpPostedFileBase archivo)
+        {
+            if (!ModelState.IsValid)
+            {
+
+                ViewBag.tipoAni = new SelectList(tiposani(), "codigo", "tipo", reg.tipo);
+                ViewBag.disponi = new SelectList(dispo(), "codigo", "descripcion", reg.disponibilidad);
+                ViewBag.alimento = alimentos();
+
+                return View(reg);
+            }
+
+            if (archivo == null)
+            {
+                ViewBag.mensaje = "Seleccione un archivo de imagen";
+                ViewBag.tipoAni = new SelectList(tiposani(), "codigo", "tipo", reg.tipo);
+                ViewBag.disponi = new SelectList(dispo(), "codigo", "descripcion", reg.disponibilidad);
+                ViewBag.alimento = alimentos();
+
+                return View(reg);
+            }
+
+
+            string ruta = "~/Imagenes/Alimentos/" + Path.GetFileName(archivo.FileName);
+            SqlConnection cn = new SqlConnection(cadena);
+            try
+            {
+                if (BusAliDet(reg.codigo) == null)
+                {
+                    SqlCommand cmd = new SqlCommand("sp_agregarAli", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@cod", reg.codigo);
+                    cmd.Parameters.AddWithValue("@nom", reg.nombre);
+                    cmd.Parameters.AddWithValue("@pre", reg.precio);
+                    cmd.Parameters.AddWithValue("@can", reg.cantidad);
+                    cmd.Parameters.AddWithValue("@tip", reg.tipo);
+                    cmd.Parameters.AddWithValue("@dis", reg.disponibilidad);
+                    cmd.Parameters.AddWithValue("@img", ruta);
+                    cn.Open();
+                    int i = cmd.ExecuteNonQuery();
+                    if (i == 2)
+                    {
+                        archivo.SaveAs(Server.MapPath(ruta));
+                        ViewBag.mensaje = "Alimento registrado";
+                    }
+                }
+
+                else
+                {
+                    SqlCommand cmd = new SqlCommand("sp_updateAli", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@cod", reg.codigo);
+                    cmd.Parameters.AddWithValue("@nom", reg.nombre);
+                    cmd.Parameters.AddWithValue("@pre", reg.precio);
+                    cmd.Parameters.AddWithValue("@can", reg.cantidad);
+                    cmd.Parameters.AddWithValue("@tip", reg.tipo);
+                    cmd.Parameters.AddWithValue("@dis", reg.disponibilidad);
+                    cmd.Parameters.AddWithValue("@img", ruta);
+                    cn.Open();
+                    int i = cmd.ExecuteNonQuery();
+                    if (i == 1)
+                    {
+                        archivo.SaveAs(Server.MapPath(ruta));
+                        ViewBag.mensaje = "Alimento actualizado";
+                    }
+                }
+
+            }
+            catch (SqlException ex) { ViewBag.mensaje = ex.Message; }
+            finally { cn.Close(); }
+
+
+            ViewBag.tipoAni = new SelectList(tiposani(), "codigo", "tipo", reg.tipo);
+            ViewBag.disponi = new SelectList(dispo(), "codigo", "descripcion", reg.disponibilidad);
+            ViewBag.alimento = alimentos();
+
+            return View(reg);
+        }
+
+       
         public ActionResult KardexAli(int id = 0)
         {
             ViewBag.usuario = NombreAdmin();
@@ -1191,6 +1371,7 @@ namespace PetOasis.Controllers
                 ViewBag.usuario = NombreAdmin();
             }
 
+            Session["login"] = null;
             Usuario reg = BuscarAdmin(login, clave);
 
             if (reg == null)
@@ -1413,7 +1594,7 @@ namespace PetOasis.Controllers
 
             if (id == null)
                 return RedirectToAction("Adoptar");
-            //Si id tiene valor, enviamos el producto seleccionado
+
             return View(BusAniDet(id));
         }
 
@@ -1443,15 +1624,10 @@ namespace PetOasis.Controllers
 
             }
 
-            //Si id tiene valor, enviamos el producto seleccionado
             return View(BusAniDet(id));
         }
 
-        /*public ActionResult Principal()
-        {
 
-            return View();
-        }*/
 
         public ActionResult Nosotros()
         {
