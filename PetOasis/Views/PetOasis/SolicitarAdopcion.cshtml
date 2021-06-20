@@ -21,11 +21,17 @@
 
         </dl>
     </div>
-    
+
     <div style="text-align:center ;margin:0" class="derecha">
         <h1 style="color:white; margin-top:25%">Confirmar solicitud</h1>
         <br /><br /><br />
-        <input type="submit" value="Confirmar" class="btn btn-primary" style="background-color:black;border-color:black;width:42%; height:50px;" />
+
+        @Html.ActionLink("Confirmar", "Solicitud", new { id = Model.codigo }, new { @class = "btn btn-primary", @style = "background-color:black;border-color:black;width:42%;height:50px;padding-top:2.8%;" })
         @Html.ActionLink("Cancelar", "AnimalAdoptar", new { id = Model.codigo }, new { @class = "btn btn-primary", @style = "background-color:black;border-color:black;width:42%;height:50px;padding-top:2.8%;" })
+        <div style="width:70%;margin-top:5%;margin-left:15%;color:darkred;">
+            @ViewBag.mensaje
+        </div>
     </div>
+
+    
 </div>

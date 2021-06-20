@@ -136,6 +136,7 @@
     <Compile Include="Models\PedidoDetaAcc.cs" />
     <Compile Include="Models\PedidoDetaAli.cs" />
     <Compile Include="Models\PedidoHeader.cs" />
+    <Compile Include="Models\Solicitud.cs" />
     <Compile Include="Models\TarjetaAcc.cs" />
     <Compile Include="Models\TarjetaAli.cs" />
     <Compile Include="Models\TipoAnimal.cs" />

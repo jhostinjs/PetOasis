@@ -1485,7 +1485,7 @@ namespace PetOasis.Controllers
             //Redireccionar a una vista final donde imprima el mensaje del proceso
             return RedirectToAction("Aviso", new { m = mensaje });
         }
-
+         
         public ActionResult Aviso(string m)
         {
             if (NombreAdmin() == null)
@@ -1598,7 +1598,7 @@ namespace PetOasis.Controllers
             return View(BusAniDet(id));
         }
 
-        public ActionResult SolicitarAdopcion(int? id = null)
+        public ActionResult SolicitarAdopcion(string m,int? id = null)
         {
             if (Session["carrito"] == null)
                 Session["carrito"] = new List<Item>();
@@ -1619,15 +1619,58 @@ namespace PetOasis.Controllers
             {
                 return RedirectToAction("Login");
             }
-            else
-            {
 
-            }
+            ViewBag.mensaje = m;
 
             return View(BusAniDet(id));
         }
+        string autogenerarSol()
+        {
+            string nsolicitud = "";
+            using (SqlConnection cn = new SqlConnection(cadena))
+            {
+                SqlCommand cmd = new SqlCommand("select dbo.autogeneraSol()", cn);
+                cn.Open();
 
+                nsolicitud = (string)cmd.ExecuteScalar();
+                cn.Close();
+            }
+            return nsolicitud;
+        }
 
+        public ActionResult Solicitud(int id=0)
+        {
+            string nsol = autogenerarSol();
+            string codigo = (Session["login"] as Usuario).codigo;
+            string mensaje = "";
+
+            SqlConnection cn = new SqlConnection(cadena);
+            
+            try
+            {
+                SqlCommand cmd = new SqlCommand("insert tb_solicitud(nroSol, codUsu, codAni) values(@sol,@usu,@ani) ", cn);
+                cmd.Parameters.AddWithValue("@sol", nsol);
+                cmd.Parameters.AddWithValue("@usu", codigo);
+                cmd.Parameters.AddWithValue("@ani", id); 
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                int i = cmd.ExecuteNonQuery();
+                if (i == 1)
+                {
+                    mensaje = string.Format("La solicitud {0} ha sido registrada",nsol);
+                }
+                    
+            }
+            catch (SqlException ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally { cn.Close(); }
+
+            return RedirectToAction("SolicitarAdopcion",  new { m = mensaje,id } );
+        }
+
+        
 
         public ActionResult Nosotros()
         {
