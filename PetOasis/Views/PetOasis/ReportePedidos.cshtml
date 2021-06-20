@@ -1,0 +1,67 @@
+﻿@model IEnumerable<PetOasis.Models.PedidoHeader>
+
+@{
+    ViewBag.Title = "ReportePedidos";
+}
+<style>
+    h2 {
+        text-align: center;
+        margin-bottom: 4%;
+    }
+
+    table {
+        margin: 0;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.3);
+        width: 94%;
+    }
+
+    body {
+        background-image: linear-gradient(to right, #0E202C, #1F1A2E);
+        padding-top: 0px;
+    }
+    h2{
+        color:white;
+        font-weight:bold;
+    }
+</style>
+<h2>Reporte de Pedidos</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.numero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.usuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estado)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.numero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.usuario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estado)
+        </td>
+        <td style="text-align:right; padding-right:3%;">
+            @Html.ActionLink("Ver detalles", "SeguimientoPedido", new { id=item.numero })
+        </td>
+    </tr>
+}
+
+</table>

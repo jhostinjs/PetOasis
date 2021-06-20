@@ -51,7 +51,7 @@
     {
         @Html.Hidden("codigo", Model.codigo)
         <table>
-            <tr sstyle="margin-bottom:10px;" class="lineak">
+            <tr style="margin-bottom:10px;" class="lineak">
                 <td>Tipo de Operacion</td>
                 <td style="color:black;">@Html.DropDownList("ope", (SelectList)ViewBag.operacion, new { htmlAttributes = new { @class = "form-control" } })</td>
             </tr>

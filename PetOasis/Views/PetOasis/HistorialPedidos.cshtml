@@ -7,10 +7,28 @@
 <style>
     h2 {
         text-align: center;
+        margin-bottom: 4%;
+    }
+    html{
+        width:100%;
+    }
+    .container.body-content {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
     }
 
-    table {
+    .table {
         margin: 0 auto;
+        padding: 20px;
+        color:white;
+        background-color: rgba(0, 0, 0, 0.8);
+        float: left;
+        width: 80%;
+        margin-inline:10%;
+        position: relative;
     }
 
     body {
@@ -30,8 +48,9 @@
             @Html.DisplayNameFor(model => model.fecha)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.usuario)
+            @Html.DisplayNameFor(model => model.estado)
         </th>
+
         <th></th>
     </tr>
 
@@ -41,13 +60,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.numero)
             </td>
-            <td>
+            <td >
                 @Html.DisplayFor(modelItem => item.fecha)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.usuario)
+            <td >
+                @Html.DisplayFor(modelItem => item.estado)
             </td>
-            <td>
+
+            <td style="text-align:right; padding-right:3%;">
                 @Html.ActionLink("Detalle pedido", "DetallePedido", new { id = item.numero })
             </td>
         </tr>

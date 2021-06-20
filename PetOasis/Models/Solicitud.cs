@@ -12,5 +12,6 @@ namespace PetOasis.Models
         [Display(Name = "Fecha")] public DateTime fecha { get; set; }
         [Display(Name = "Usuario")] public string usuario { get; set; }
         [Display(Name = "Animal")] public int animal { get; set; }
+        [Display(Name = "Estado")] public string estado { get; set; }
     }
 }

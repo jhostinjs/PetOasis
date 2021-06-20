@@ -312,6 +312,11 @@
     <Content Include="Views\PetOasis\Nosotros.cshtml" />
     <Content Include="Views\PetOasis\LoginAdmin.cshtml" />
     <Content Include="Views\PetOasis\MenuAdmin.cshtml" />
+    <Content Include="Views\PetOasis\Solicitudes.cshtml" />
+    <Content Include="Views\PetOasis\ReporteSolicitud.cshtml" />
+    <Content Include="Views\PetOasis\ReportePedidos.cshtml" />
+    <Content Include="Views\PetOasis\SeguimientoPedido.cshtml" />
+    <Content Include="Views\PetOasis\AprobarSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

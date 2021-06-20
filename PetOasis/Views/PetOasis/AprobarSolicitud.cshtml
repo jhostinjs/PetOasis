@@ -1,0 +1,167 @@
+﻿@model PetOasis.Models.Solicitud
+
+@{
+    ViewBag.Title = "AprobarSolicitud";
+}
+
+<style>
+    .container.body-content {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
+        height: 100%;
+    }
+    html{
+        width:100%;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    body {
+        background-image: linear-gradient(to right, #0E202C, #1F1A2E);
+        padding-top: 0px;
+        color: white;
+        width: 100%;
+        height: 100%;
+    }
+
+    .arriba {
+        height: 40%;
+    }
+
+    .abajo {
+        margin-top: 4%;
+        height: 58%;
+    }
+
+    .listAcc {
+        padding: 2.1%;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .izquierda {
+        width: 48%;
+        float: left;
+    }
+
+    h4:hover {
+        color: white;
+        text-decoration: none;
+    }
+
+    .listAli {
+        padding: 1%;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.3);
+        width: 48%;
+        float: right;
+    }
+
+    .general {
+        margin: 5%;
+    }
+
+    .regresar {
+        margin-block-start: 10%;
+        padding: 4%;
+        padding-inline: 3%;
+        background-color: black;
+        color: white;
+        border-radius: 5px;
+        font-weight: 600;
+        float: left;
+    }
+
+    .regresar:hover {
+        text-decoration: none;
+        color: white;
+    }
+    hr{
+        border:0;
+    }
+</style>
+<h2>Evaluar Solicitud</h2>
+
+<div class="general">
+    <div class="arriba">
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.numero)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.numero)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.fecha)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.fecha)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.usuario)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.usuario)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.animal)
+            </dt>
+
+            <dd style="width:18%;">
+                <img style="width:60%; height:160px; border:3px solid black; background-color:#E2F4F7;" src="@Url.Content(string.Format("~/Imagenes/Animales/{0}.png",Model.animal))" />
+
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.estado)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.estado)
+            </dd>
+
+        </dl>
+    </div>
+
+    <div style="float:left;width:100%;">
+        @using (Html.BeginForm("AprobarSolicitud", "PetOasis", FormMethod.Post))
+        {
+            @Html.Hidden("numero", Model.numero)
+            <table style="margin-left:2%;margin-bottom:2%;">
+                <tr style="float:left">
+                    <td>Estado de la solicitud</td>
+                    <td>
+                        <select style="width:200px;margin-left:15%;" class="form-control" id="estado" name="estado">
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Aceptado">Aceptado</option>
+                            <option value="Rechazado">Rechazado</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr style="margin-top: 10px;">
+                    <td colspan="3">
+                        <input type="submit" value="Aceptar" class="btn btn-default" style="width:50%;height:48px;float:right; background-color:black;color:white;border:0;font-weight: bold;margin-top: 10%;" />
+                        @Html.ActionLink("Regresar al reporte", "ReporteSolicitud", null, new { @class = "regresar" })
+                    </td>
+                </tr>
+            </table>
+            <p>
+                @ViewBag.mensaje
+            </p>
+        }
+    </div>
+</div>
+

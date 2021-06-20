@@ -253,6 +253,14 @@ namespace PetOasis.Controllers
                 return pedidosnopar().Where(c => c.numero == id).FirstOrDefault();
         }
 
+        Solicitud BuscarSolicitud(string id = "")
+        {
+            if (id == null)
+                return new Solicitud();
+            else
+                return repsoli().Where(c => c.numero == id).FirstOrDefault();
+        }
+
         IEnumerable<Animal> filtrazo(string nombre, List<SqlParameter> pars = null)
         {
             List<Animal> temporal = new List<Animal>();
@@ -456,7 +464,62 @@ namespace PetOasis.Controllers
                     {
                         numero = dr.GetString(0),
                         fecha = dr.GetDateTime(1),
-                        usuario = dr.GetString(2)
+                        usuario = dr.GetString(2),
+                        estado = dr.GetString(3)
+                    };
+                    temporal.Add(reg);
+                }
+                dr.Close();
+                cn.Close();
+            }
+            return temporal;
+        }
+
+        IEnumerable<Solicitud> solicitudes(string nombre, SqlParameter usuario = null)
+        {
+            List<Solicitud> temporal = new List<Solicitud>();
+            using (SqlConnection cn = new SqlConnection(cadena))
+            {
+                SqlCommand cmd = new SqlCommand("sp_solicitud", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                if (usuario != null) cmd.Parameters.Add(usuario);
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    Solicitud reg = new Solicitud()
+                    {
+                        numero = dr.GetString(0),
+                        fecha = dr.GetDateTime(1),
+                        usuario = dr.GetString(2),
+                        animal = dr.GetInt32(3),
+                        estado = dr.GetString(4)
+                    };
+                    temporal.Add(reg);
+                }
+                dr.Close();
+                cn.Close();
+            }
+            return temporal;
+        }
+
+        IEnumerable<Solicitud> repsoli()
+        {
+            List<Solicitud> temporal = new List<Solicitud>();
+            using (SqlConnection cn = new SqlConnection(cadena))
+            {
+                SqlCommand cmd = new SqlCommand("select*from tb_solicitud", cn);
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    Solicitud reg = new Solicitud()
+                    {
+                        numero = dr.GetString(0),
+                        fecha = dr.GetDateTime(1),
+                        usuario = dr.GetString(2),
+                        animal = dr.GetInt32(3),
+                        estado = dr.GetString(4)
                     };
                     temporal.Add(reg);
                 }
@@ -480,7 +543,8 @@ namespace PetOasis.Controllers
                     {
                         numero = dr.GetString(0),
                         fecha = dr.GetDateTime(1),
-                        usuario = dr.GetString(2)
+                        usuario = dr.GetString(2),
+                        estado = dr.GetString(3)
                     };
                     temporal.Add(reg);
                 }
@@ -954,7 +1018,7 @@ namespace PetOasis.Controllers
 
             return View(reg);
         }
-
+        
         [HttpPost]public ActionResult KardexAli(int codigo, string detalle, int ope, int cantidad)
         {
             ViewBag.usuario = NombreAdmin();
@@ -1530,7 +1594,6 @@ namespace PetOasis.Controllers
 
             return View(temporal);
         }
-
         public ActionResult DetallePedido(string id = "")
         {
             if (NombreAdmin() == null)
@@ -1554,6 +1617,137 @@ namespace PetOasis.Controllers
 
             return View(reg);
         }
+
+        public ActionResult SeguimientoPedido(string id = "")
+        {
+
+            ViewBag.usuario = NombreAdmin();
+
+            if (Session["carrito"] == null)
+                Session["carrito"] = new List<Item>();
+
+            PedidoHeader reg = BuscarPedido(id);
+            if (reg == null)
+                return RedirectToAction("ReportePedidos");
+
+            ViewBag.alimentodet = detallePedAli(id);
+            ViewBag.accesoriodet = detallePedAcc(id);
+
+            return View(reg);
+        }
+
+        [HttpPost]public ActionResult SeguimientoPedido(string numero, string estado)
+        {
+
+            ViewBag.usuario = NombreAdmin();
+
+            SqlConnection cn = new SqlConnection(cadena);
+            cn.Open();
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand("update tb_pedido_header set estpedido = @estado where npedido = @nro", cn);
+                cmd.Parameters.AddWithValue("@nro", numero);
+                cmd.Parameters.AddWithValue("@estado", estado);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                ViewBag.mensaje = ex.Message;
+            }
+            finally { cn.Close(); }
+
+            return RedirectToAction("SeguimientoPedido");
+        }
+        public ActionResult AprobarSolicitud(string id = "")
+        {
+
+            ViewBag.usuario = NombreAdmin();
+
+            if (Session["carrito"] == null)
+                Session["carrito"] = new List<Item>();
+
+            Solicitud reg = BuscarSolicitud(id);
+            if (reg == null)
+                return RedirectToAction("ReporteSolicitud");
+
+
+            return View(reg);
+        }
+        [HttpPost] public ActionResult AprobarSolicitud(string numero, string estado)
+        {
+
+            ViewBag.usuario = NombreAdmin();
+
+            SqlConnection cn = new SqlConnection(cadena);
+            cn.Open();
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand("update tb_solicitud set estadoSol= @estado where nroSol=@nro", cn);
+                cmd.Parameters.AddWithValue("@nro", numero);
+                cmd.Parameters.AddWithValue("@estado", estado);
+                cmd.ExecuteNonQuery();
+
+                ViewBag.mensaje = "Estado actualizado";
+            }
+            catch (SqlException ex)
+            {
+                ViewBag.mensaje = ex.Message;
+            }
+            finally { cn.Close(); }
+
+            return RedirectToAction("AprobarSolicitud");
+        }
+        public ActionResult Solicitudes()
+        {
+
+            ViewBag.usuario = Nombre();
+
+
+            if (Session["carrito"] == null)
+                Session["carrito"] = new List<Item>();
+
+            if (Session["login"] == null)
+            {
+                Session["login"] = null;
+                Session["loginadmin"] = null;
+                return RedirectToAction("Login");
+            }
+
+            string usuario = (Session["login"] as Usuario).codigo;
+
+            IEnumerable<Solicitud> temporal = solicitudes("sp_solicitud", new SqlParameter() { ParameterName = "@usu", Value = usuario});
+
+            return View(temporal);
+        }
+
+        public ActionResult ReporteSolicitud()
+        {
+            ViewBag.usuario = NombreAdmin();
+
+            if (Session["loginadmin"] == null)
+            {
+                return RedirectToAction("LoginAdmin");
+            }
+            IEnumerable<Solicitud> temporal = repsoli();
+
+            return View(temporal);
+        }
+
+        public ActionResult ReportePedidos()
+        {
+            ViewBag.usuario = NombreAdmin();
+
+            if (Session["loginadmin"] == null)
+            {
+                return RedirectToAction("LoginAdmin");
+            }
+            IEnumerable<PedidoHeader> temporal = pedidosnopar();
+
+            return View(temporal);
+        }
+
         public ActionResult Animal(string id = "")
         {
             if (NombreAdmin() == null)
@@ -1645,6 +1839,11 @@ namespace PetOasis.Controllers
             string mensaje = "";
 
             SqlConnection cn = new SqlConnection(cadena);
+
+            if (id == 0)
+            {
+                return RedirectToAction("Adoptar");
+            }
             
             try
             {
@@ -1653,7 +1852,6 @@ namespace PetOasis.Controllers
                 cmd.Parameters.AddWithValue("@usu", codigo);
                 cmd.Parameters.AddWithValue("@ani", id); 
                 cn.Open();
-                cmd.ExecuteNonQuery();
                 int i = cmd.ExecuteNonQuery();
                 if (i == 1)
                 {
@@ -1670,8 +1868,6 @@ namespace PetOasis.Controllers
             return RedirectToAction("SolicitarAdopcion",  new { m = mensaje,id } );
         }
 
-        
-
         public ActionResult Nosotros()
         {
             if (NombreAdmin() == null)
@@ -1684,6 +1880,8 @@ namespace PetOasis.Controllers
             }
             return View();
         }
+
+
 
     }
 }

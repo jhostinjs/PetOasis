@@ -1,9 +1,8 @@
 ﻿@model PetOasis.Models.PedidoHeader
 @using PetOasis.Models
 @{
-    ViewBag.Title = "DetallePedido";
+    ViewBag.Title = "SeguimientoPedido";
 }
-
 <style>
     .container.body-content {
         margin-left: 0;
@@ -11,18 +10,23 @@
         padding-left: 0;
         padding-right: 0;
         width: 100%;
+        height: 100%;
     }
+    html{
+        width:100%;
+        height:100%;
+    }
+
     h2 {
         text-align: center;
     }
 
-    table {
-        margin: 0 auto;
-    }
-
     body {
-        background-image: linear-gradient(to left, #ffd89b, #F8F3EC);
+        background-image: linear-gradient(to right, #0E202C, #1F1A2E);
         padding-top: 0px;
+        color: white;
+        width: 100%;
+        height: 100%;
     }
 
     .arriba {
@@ -30,14 +34,14 @@
     }
 
     .abajo {
-        margin-top:4%;
+        margin-top: 4%;
         height: 58%;
     }
 
     .listAcc {
-        padding:2.1%;
-        color:white;
-        background-color: rgba(0, 0, 0, 0.76);
+        padding: 2.1%;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.3);
     }
 
     .izquierda {
@@ -45,45 +49,47 @@
         float: left;
     }
 
-    h4:hover{
-        color:white;
-        text-decoration:none;
+    h4:hover {
+        color: white;
+        text-decoration: none;
     }
 
     .listAli {
         padding: 1%;
         color: white;
-        background-color: rgba(0, 0, 0, 0.76);
+        background-color: rgba(0, 0, 0, 0.3);
         width: 48%;
         float: right;
     }
-    .general{
-        margin:5%;
+
+    .general {
+        margin: 5%;
     }
 
     .regresar {
         margin-block-start: 5%;
         padding: 2%;
         padding-inline: 3%;
-        background-color: #0C0C0C;
+        background-color: black;
         color: white;
         border-radius: 5px;
         font-weight: 600;
         float: left;
     }
 
-    .regresar:hover{
-    text-decoration:none;
-    color:white;
+    .regresar:hover {
+        text-decoration: none;
+        color: white;
+    }
+    hr{
+        border:0;
     }
 </style>
-
 <h2>Detalle del pedido</h2>
 
 <div class="general">
     <div class="arriba">
 
-        <hr />
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.numero)
@@ -115,13 +121,43 @@
             <dd>
                 @Html.DisplayFor(model => model.estado)
             </dd>
+
         </dl>
     </div>
+
+    <div style="float:left;width:100%;">
+    @using (Html.BeginForm("SeguimientoPedido", "PetOasis", FormMethod.Post))
+    {
+        @Html.Hidden("numero", Model.numero)
+        <table style="margin-left:2%;margin-bottom:2%;">
+            <tr style="float:left">
+                <td >Estado del pedido</td>
+                <td>
+                    <select style="width:200px;margin-left:15%;" class="form-control" id="estado" name="estado">
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="En Camino">En Camino</option>
+                        <option value="Cancelado">Cancelado</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr style="margin-top: 10px;">
+                <td colspan="3">
+                    <input type="submit" value="Aceptar" class="btn btn-default" style="width:50%;height:40px; background-color:black;color:white;border:0;font-weight: 600;margin-top:3%;"/>
+
+                </td>
+            </tr>
+        </table>
+        <p>
+            @ViewBag.mensaje
+        </p>
+    }
+</div>
     <div class="abajo">
         <div class="izquierda">
             <div class="listAcc">
                 @Html.Partial("_partialDetPedAcc", (IEnumerable<PedidoDetaAcc>)ViewBag.accesoriodet)
-                @Html.ActionLink("Regresar al historial", "HistorialPedidos", null, new { @class = "regresar" })
+                @Html.ActionLink("Regresar al reporte", "ReportePedidos", null, new { @class = "regresar" })
             </div>
         </div>
 
@@ -131,7 +167,4 @@
 
 
     </div>
-
-
-
 </div>
