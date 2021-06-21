@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<PetOasis.Models.Alimento>
 @using PetOasis.Models
-<link rel="stylesheet" href="~/CSS/compraracc.css" type="text/css" />
+<link rel="stylesheet" href="~/CSS/compraracc4.css" type="text/css" />
 @{
     ViewBag.Title = "ComprarAlimentos";
 }
@@ -35,7 +35,7 @@
         <img class="imgacc" src="@Url.Content(string.Format("~/Imagenes/Alimentos/{0}.jpg", item.codigo))" />
         <span class="nombre">@Html.DisplayFor(modelItem => item.nombre)</span>
         <span class="precio">S/.@Html.DisplayFor(modelItem => item.precio)</span>
-        <span class="precio">Stock: @Html.DisplayFor(modelItem => item.cantidad)</span>
+        <span class="stock">Stock: @Html.DisplayFor(modelItem => item.cantidad)</span>
         <br />
     </a>
     }

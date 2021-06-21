@@ -15,69 +15,106 @@
     body {
         background-image: linear-gradient(to left, #ffd89b, #F8F3EC);
         padding-top: 0px;
+        width: 100%;
+        height: 100%;
     }
+    .container.body-content {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
+        height: 100%;
+    }
+    hr{
+        border:0;
+    }
+    html {
+        width: 100%;
+        height: 100%;
+    }
+    .derecha {
+        margin-top: 5%;
+        margin-right: 6%;
+        float: right;
+        width: 44%;
+        height: 80%;
+        margin-bottom: 5%;
+    }
+    .izquierda {
+        float: left;
+        width: 47%;
+        height: 80%;
+        margin-bottom: 5%;
+        margin-right:3%;
+    }
+    dt, dd{
+        margin-top: 10px;
+    }
+
 </style>
 
 <div>
-    <h4>Animal</h4>
     <hr />
     <dl class="dl-horizontal">
+        <div class="derecha">
+            <dt>
+                @Html.DisplayNameFor(model => model.nombre)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.nombre)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.nombre)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.nombre)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.rescate)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.rescate)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.rescate)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.rescate)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.sexo)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.sexo)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.sexo)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.sexo)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.tamaño)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.tamaño)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.tamaño)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.tamaño)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.estado)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.estado)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.estado)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.estado)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.nacimiento)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.nacimiento)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.nacimiento)
-        </dd>
-
-        <dd>
-            <img src="@Url.Content(Model.imgAni)" />
-        </dd>
-
+            <dd>
+                @Html.DisplayFor(model => model.nacimiento)
+            </dd>
+            <p style="margin-left:2%;margin-top:5%;">
+                @Html.ActionLink("Retornar", "Adoptar", null, new { @class = "btn btn-primary", @style = "background-color:black;border-color:black;width:25%;" })
+                @Html.ActionLink("Adoptar", "SolicitarAdopcion", new { id = Model.codigo }, new { @class = "btn btn-primary", @style = "background-color:black;border-color:black;width:25%;" })
+            </p>
+        </div>
+        <div class="izquierda">
+            <dd style="width: 31%;height: 36%;margin-right:4%;float:right;">
+                <img style="width:100%;height:100%;" src="@Url.Content(Model.imgAni)" />
+            </dd>
+        </div>
     </dl>
 </div>
-<p>
-        @Html.ActionLink("Retornar", "Adoptar", null, new { @class = "btn btn-primary" })
-        @Html.ActionLink("Adoptar", "SolicitarAdopcion", new { id = Model.codigo }, new { @class = "btn btn-primary" })
-</p>
+

@@ -152,7 +152,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="CSS\adoptar2.css" />
     <Content Include="CSS\carrito3.css" />
-    <Content Include="CSS\compraracc.css" />
+    <Content Include="CSS\compraracc4.css" />
     <Content Include="CSS\mantenimiento.css" />
     <Content Include="CSS\solicitarAdop2.css" />
     <Content Include="favicon.ico" />
@@ -254,6 +254,7 @@
     <Content Include="Imagenes\nosotros1.jpg" />
     <Content Include="Imagenes\nosotros2.jpg" />
     <Content Include="Imagenes\nosotros3.jpg" />
+    <Content Include="Imagenes\petoasis.png" />
     <Content Include="Imagenes\user.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
