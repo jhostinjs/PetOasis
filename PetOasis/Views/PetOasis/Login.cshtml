@@ -66,7 +66,7 @@
             <table style="width: 70%;margin-inline: 15%;text-align: center;margin-top: 8%;border-collapse: separate;border-spacing: 0 1em;">
                 <tr>
                     <td>Usuario</td>
-                    <td>@Html.TextBox("login", "", new { @class = "form-control", @style = "width:80%;" } )</td>
+                    <td>@Html.TextBox("login", "", new { @class = "form-control", @style = "width:80%;" })</td>
                 </tr>
                 <tr>
                     <td>Clave</td>
@@ -81,9 +81,10 @@
                 </tr>
             </table>
         }
+        <div style="color:darkred;margin-top:8%;text-align:center;">
+            @ViewBag.mensaje
+        </div>
+
     </div>
-</div>
-<div>
-    @ViewBag.mensaje
 </div>
 
